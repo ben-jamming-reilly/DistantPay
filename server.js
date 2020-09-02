@@ -1,11 +1,15 @@
-const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const express = require("express");
+const http = require("http");
+const socket = require("socket.io");
 const connectDB = require("./config/db");
 
 connectDB();
 
 const app = express();
+const server = http.createServer(app);
+const io = socket(server);
 
 // To parse application/json
 app.use(bodyParser.json());
