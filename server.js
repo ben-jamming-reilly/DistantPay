@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 // --Orders (A Reciept Essentially)
 // --Items (The food that will be sold)
 // --Users (The Business End)
+app.use("/api/users", require("./routes/api/users"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server started on " + PORT));

@@ -3,14 +3,13 @@ const config = require("config");
 
 const User = require("../models/User");
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   // Get token from header
   const token = req.header("x-auth-token");
 
   // Check if no token
-  if (!token) {
+  if (!token)
     return res.status(401).json({ msg: "No token, authorization denied" });
-  }
 
   // verify token
   try {
@@ -19,7 +18,9 @@ module.exports = function (req, res, next) {
 
     const user = await User.findById(req.user.id);
     if (!user.verified)
-    return res.status(403).json({ errors: [{ msg: "Your account hasn't been verified yet" }] });
+      return res
+        .status(403)
+        .json({ errors: [{ msg: "Your account hasn't been verified yet" }] });
 
     next();
   } catch (err) {

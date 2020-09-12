@@ -9,6 +9,38 @@ const User = require("../../models/User");
 
 router.post("/login", async (req, res) => {
   const { user_name, password } = req.body;
+
+  try {
+    const user = await User.findOne({ user_name: user_name });
+    if (!user)
+      return res.status(400).json({ errors: [{ msg: "Invalid Email" }] });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch)
+      return res.status(400).json({ errors: [{ msg: "Invalid Password" }] });
+
+    // Log user in
+
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      config.get("jwtSecret"),
+      { expiresIn: 7200 },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
+  } catch (err) {
+    console.err(err.message);
+    return res.status(500).send("Server Error");
+  }
 });
 
 router.get("/", auth, async (req, res) => {
@@ -66,3 +98,18 @@ router.post("/modify/:id", auth, async (req, res) => {
     return res.status(500).send("Server error");
   }
 });
+
+router.post("/admin", async (req, res) => {
+  const admin = {
+    user_name: "benreilly",
+    password: "",
+    verified: true,
+  };
+  try {
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send("Server error");
+  }
+});
+
+module.exports = router;
