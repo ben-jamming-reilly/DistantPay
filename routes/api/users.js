@@ -99,13 +99,28 @@ router.post("/modify/:id", auth, async (req, res) => {
   }
 });
 
-router.post("/admin", async (req, res) => {
+router.post("/admin/:password", async (req, res) => {
   const admin = {
     user_name: "benreilly",
-    password: "",
+    password: String(req.params.password),
     verified: true,
   };
+
   try {
+    let user = await User.findOne({ user_name: admin.user_name });
+
+    if (user)
+      return res.status(403).json({
+        errors: [{ msg: "Account Already Exists" }],
+      });
+
+    // Creates default admin account
+    user = new User(admin);
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+
+    await user.save();
+    return res.status(201).json({ msg: "Admin Account Set!" });
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server error");

@@ -10,8 +10,9 @@ const ItemSchema = new Schema({
     type: Number,
     require: true,
   },
-  pic: {
+  pic_file_name: {
     type: String,
+    require: true,
   },
   item_number: {
     type: Number,
@@ -19,9 +20,15 @@ const ItemSchema = new Schema({
   desc: {
     type: String,
   },
-  allergens: {
-    type: String,
+  in_stock: {
+    type: Boolean,
+    default: false,
   },
+  allergens: [
+    {
+      type: String,
+    },
+  ],
 });
 
 module.exports = Item = mongoose.model("item", ItemSchema);
