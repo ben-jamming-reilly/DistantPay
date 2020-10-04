@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
   name: {
     type: String,
+    unique: true,
     require: true,
   },
   price: {
@@ -16,6 +17,8 @@ const ItemSchema = new Schema({
   },
   item_number: {
     type: Number,
+    require: true,
+    unique: true,
   },
   desc: {
     type: String,
