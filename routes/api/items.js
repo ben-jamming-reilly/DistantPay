@@ -17,7 +17,6 @@ const storageEngine = multer.diskStorage({
     cb(null, String(file.fieldname + "-" + Date.now() + "." + parts[1]));
   },
 });
-
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
@@ -38,7 +37,7 @@ router.get("/", async (req, res) => {
 
     return res.json(avaliableItems);
   } catch (err) {
-    console.err(err.message);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
@@ -49,17 +48,31 @@ router.get("/all", auth, async (req, res) => {
     const allItems = await Item.find({}).lean();
     return res.json(allItems);
   } catch (err) {
-    console.err(err.message);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
 
 // Creates a new menu item
 router.post("/", upload.single("image"), async (req, res) => {
+  // Keep in mind that this is sent as multipart/formdata
+  const form = JSON.parse(req.body.data);
   try {
-    console.log(req.file);
+    let item = new Item({
+      name: form.name,
+      price: form.price,
+      pic_filename: req.file.filename,
+      item_number: form.item_number,
+      desc: form.desc,
+      in_stock: form.in_stock,
+      allergens: form.allergens,
+    });
+
+    await item.save();
+
+    return res.status(201).json(item);
   } catch (err) {
-    console.err(err.message);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
@@ -68,7 +81,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 router.post("/:id", async (req, res) => {
   try {
   } catch (err) {
-    console.err(err.message);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
@@ -78,7 +91,7 @@ router.delete("/:id", async (req, res) => {
   try {
     let removeItem = await Item.findById(id);
   } catch (err) {
-    console.err(err.message);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });

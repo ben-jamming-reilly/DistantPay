@@ -20,6 +20,7 @@ app.use("./uploads", express.static("uploads"));
 // --Orders (A Reciept Essentially)
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/items", require("./routes/api/items"));
+app.use("/api/uploads", require("./routes/api/uploads"));
 
 // Socket goes here
 io.on("connection", async (socket) => {

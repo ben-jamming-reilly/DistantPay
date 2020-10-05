@@ -11,7 +11,7 @@ const ItemSchema = new Schema({
     type: Number,
     require: true,
   },
-  pic_file_name: {
+  pic_filename: {
     type: String,
     require: true,
   },
