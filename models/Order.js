@@ -4,15 +4,28 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   name: {
     type: String,
+    require: true,
   },
   time_ordered: {
     type: Date,
     default: Date.now(),
   },
+  complete: {
+    type: Boolean,
+    default: false,
+  },
+  paid: {
+    type: Boolean,
+    default: false,
+  },
+  total: {
+    type: Number,
+    required: true,
+  },
   items: [
     {
       id: {
-        id: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "item",
       },
       quantity: {

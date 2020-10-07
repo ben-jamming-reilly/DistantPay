@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const http = require("http");
 const socketIO = require("socket.io");
-const connectDB = require("./config/db");
+const connectDB = require("./utils/db");
 
 connectDB();
 
@@ -11,13 +11,12 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
-// To parse application/json
 app.use(bodyParser.json());
 
+// Specifies the folder for images
 app.use("./uploads", express.static("uploads"));
 
-// Routes Go Here
-// --Orders (A Reciept Essentially)
+app.use("/api/orders", require("./routes/api/order"));
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/items", require("./routes/api/items"));
 app.use("/api/uploads", require("./routes/api/uploads"));
