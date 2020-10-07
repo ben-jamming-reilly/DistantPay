@@ -1,5 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://BenReilly:733EIndiana@distantpay.gbwzo.mongodb.net/main?retryWrites=true&w=majority",
-  "stripeSecret": "sk_test_51HZRRrGjnCkVks9IrJoigbdXVtBsZ15g5j6cxpqlNDcIv4yi02uPApyzDcsqTOsPVZSm1w2Ix8fZooiKo18AG3ws00fVK5izKt",
-  "stripePublic": "pk_test_51HZRRrGjnCkVks9IBjdB2wsL9sHsEuwUXiM56H3XaWdyhdt4VHcwz5gxgJ50g0v8oKQIKY3evoN4iCJuGk7jhjnv00poAO44Pe"
-}
