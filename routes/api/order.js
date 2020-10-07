@@ -7,16 +7,36 @@ const stripe = require("stripe")(config.get("stripeSecret"));
 const Order = require("../../models/Order");
 const Item = require("../../models/Item");
 
+// Give all paid & uncompleted orders
 router.get("/", auth, async (req, res) => {
   try {
-    const orders = await Order.findOne({ complete: false, paid: true });
+    const orders = await Order.find({ complete: false, paid: true });
+    return res.json(orders);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
 
-router.get;
+// Complete certain orders
+router.post("/:id", auth, async (req, res) => {
+  const id = req.params.id;
+  try {
+    let order = await Order.findById(id);
+    if (!order)
+      return res
+        .status(404)
+        .json({ errors: [{ msg: "Order does not exist." }] });
+
+    order.complete = true;
+
+    await order.save();
+    return res.status(200);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send("Server Error");
+  }
+});
 
 router.post("/", async (req, res) => {
   const { name, items, total } = req.body;
@@ -28,7 +48,7 @@ router.post("/", async (req, res) => {
       const item = await Item.findById(items[i].id);
       if (!item)
         return res
-          .status(400)
+          .status(404)
           .json({ errors: [{ msg: "Item does not exist." }] });
 
       confirmTotal += item.price * items[i].quantity;
