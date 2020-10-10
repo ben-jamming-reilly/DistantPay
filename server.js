@@ -23,9 +23,29 @@ app.use("/api/uploads", require("./routes/api/uploads"));
 
 // Socket goes here
 io.on("connection", async (socket) => {
-  console.log("New Client Connected");
+  console.log("Client Connected: " + JSON.stringify(socket.handshake.query));
 
-  socket.send("hello");
+  socket.on("new_order", data => {
+    
+  });
+
+  socket.on("complete_order", data => {
+    
+  });
+
+  socket.on("new_item", data => {
+    
+  });
+
+  socket.on("remove_item", data => {
+    
+  });
+
+  socket.on("mod_item", data => {
+    
+  });
+
+
   socket.on("disconnect", () => {
     console.log("Client Disconnected");
   });
