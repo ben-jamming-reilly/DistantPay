@@ -4,7 +4,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     USER_LOADED,
-} from "./types";
+} from "../actions/types";
 
 const initialState = {
     token: localStorage.getItem("token"),
@@ -15,6 +15,7 @@ const initialState = {
 
 export default function (state =  initialState, action) {
     const {type, payload} = action;
+    
     switch (type) {
         case SIGNUP_SUCCESS:
             return {
@@ -41,5 +42,8 @@ export default function (state =  initialState, action) {
                 ...state,
                 loading: false,
               };
+        default:
+            return state;
     }
+    
 }

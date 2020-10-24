@@ -10,6 +10,9 @@ import setAuthToken from "./utils/setAuthToken";
 // Routes
 import PrivateRoute from "./components/routing/PrivateRoute";
 
+// Authentication
+import Auth from "./components/auth/Auth";
+
 // Landing
 import NavigationBar from "./components/layout/NavigationBar";
 
@@ -34,10 +37,11 @@ const App = () => {
     <Router>
       <Fragment>
         <NavigationBar/>
+        <br/>
         <Route exact path='/'/>
         <section className='container'>
           <Switch>
-            <Route />
+            <Route exact path='/auth' component={Auth}/>
             <PrivateRoute />
           </Switch>
         </section>

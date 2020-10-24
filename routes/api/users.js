@@ -7,6 +7,17 @@ const auth = require("../../middleware/auth");
 
 const User = require("../../models/User");
 
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+
+    return res.json(user);
+  } catch (err) {
+    console.err(err.message);
+    return res.status(500).send("Server Error");
+  }
+});
+
 router.post("/login", async (req, res) => {
   const { user_name, password } = req.body;
 
@@ -43,16 +54,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-
-    return res.json(user);
-  } catch (err) {
-    console.err(err.message);
-    return res.status(500).send("Server Error");
-  }
-});
 
 router.post("/create", async (req, res) => {
   const { user_name, password } = req.body;

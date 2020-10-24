@@ -1,0 +1,57 @@
+import React, { useState, Fragment } from "react";
+import { connect } from "react-redux";
+import { Redirect, Link } from "react-router-dom";
+import PropTypes from "prop-types";
+
+// Bootstrap and styling
+import { ButtonGroup, Button, Row, Col} from "react-bootstrap";
+
+const Auth = ({ isAuthenticated }) => {
+    const [isLogin, setAuthType] = useState(true);
+
+    if (isAuthenticated) {
+        return <Redirect />;
+    }
+
+    return (
+        <Fragment>
+            <Row>
+                <Col xs='1'/>
+                <Col>
+                    <Row
+                        style={{
+                            justifyContent: "center",
+                        }}
+                    >
+                        <ButtonGroup toggle>
+                            <Button
+                                onClick={() => setAuthType(true)}
+                            >
+                                Login
+                            </Button>
+                            <Button
+                                onClick={() => setAuthType(false)}
+                            >
+                                Signup
+                            </Button>
+                        </ButtonGroup>
+                    </Row>
+                    <Row>
+                        {isLogin? "true": "false"}
+                    </Row>
+                </Col>
+                <Col xs='1'/>
+            </Row>
+        </Fragment>
+    );
+}
+
+Auth.propTypes = {
+    isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Auth);
