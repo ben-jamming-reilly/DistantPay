@@ -6,6 +6,7 @@ import {
   LOGIN_FAIL,
   USER_LOADED,
 } from "./types";
+import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -21,13 +22,14 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch({
-        type: AUTH_ERROR,
-    });
+
+    // Put a dispatch auth error here
+    const errors = err.response.data.errors;
+    console.error(errors);
   }
 };
 
-export const register = (userData) => async (dispatch) => {
+export const signup = (userData) => async (dispatch) => {
   
   const config = {
     headers: {
