@@ -7,6 +7,7 @@ import {
   USER_LOADED,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { setAlarm } from "./alarm";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -15,40 +16,50 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    let res = await axios.get("/api/auth");
+    let res = await axios.get("/api/users");
 
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (err) {
-
-    // Put a dispatch auth error here
     const errors = err.response.data.errors;
-    console.error(errors);
+
+    if (errors) {
+      console.error(errors);
+      errors.forEach((error) => dispatch(setAlarm(error.msg, error.type)));
+    }
   }
 };
 
 export const signup = (userData) => async (dispatch) => {
-  
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
-  }
-
+  };
   const body = JSON.stringify(userData);
-  
-  try {
-    const res = await axios.post("/api/users/create");
 
+  try {
+    const res = await axios.post("/api/users/create", body, config);
+
+    // This is pointless but, keep regardless
     dispatch({
       type: SIGNUP_SUCCESS,
-      payload: res.data,
     });
+
+    // Returns a success message
+    dispatch(setAlarm(res.data.msg, res.data.type));
   } catch (err) {
     const errors = err.response.data.errors;
-    console.error(errors);
+
+    if (errors) {
+      console.error(errors);
+      errors.forEach((error) => dispatch(setAlarm(error.msg, error.type)));
+    }
+    dispatch({
+      type: SIGNUP_FAIL,
+    });
   }
 };
 
@@ -62,7 +73,7 @@ export const login = (userData) => async (dispatch) => {
   const body = JSON.stringify(userData);
 
   try {
-    const res = await axios.post("/api/users/login");
+    const res = await axios.post("/api/users/login", body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -70,6 +81,14 @@ export const login = (userData) => async (dispatch) => {
     });
   } catch (err) {
     const errors = err.response.data.errors;
-    console.error(errors);
+
+    if (errors) {
+      console.error(errors);
+      errors.forEach((error) => dispatch(setAlarm(error.msg, error.type)));
+    }
+
+    dispatch({
+      type: LOGIN_FAIL,
+    });
   }
 };

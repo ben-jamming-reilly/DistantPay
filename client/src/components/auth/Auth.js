@@ -14,7 +14,7 @@ const Auth = ({ isAuthenticated }) => {
   const [isLogin, setAuthType] = useState(true);
 
   if (isAuthenticated) {
-    return <Redirect />;
+    return <Redirect to='/hub' />;
   }
 
   return (

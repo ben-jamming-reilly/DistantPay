@@ -13,14 +13,18 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 // Authentication
 import Auth from "./components/auth/Auth";
 
-// Landing
+// Layout
 import NavigationBar from "./components/layout/NavigationBar";
+import Alarm from "./components/layout/Alarm";
+
+// Auth
+import Hub from "./components/admin/Hub";
+import AuthMenu from "./components/item/AuthMenu";
 
 // Socket
 import io from "socket.io-client";
 
 // Style
-import { Container } from "react-bootstrap";
 import "./App.css";
 
 const ENDPOINT = "http://127.0.0.1:5000";
@@ -41,11 +45,13 @@ const App = () => {
         <Fragment>
           <NavigationBar />
           <br />
+          <Alarm />
           <Route exact path='/' />
           <section className='container'>
             <Switch>
               <Route exact path='/auth' component={Auth} />
-              <PrivateRoute exact path='/items' />
+              <PrivateRoute exact path='/items' component={AuthMenu} />
+              <PrivateRoute exact path='/hub' component={Hub} />
             </Switch>
           </section>
         </Fragment>

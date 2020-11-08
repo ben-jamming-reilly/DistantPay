@@ -4,18 +4,19 @@ import { connect } from "react-redux";
 
 // Actions
 import { signup } from "../../actions/auth";
+import { setAlarm } from "../../actions/alarm";
 
 // Styling
 import { Form, Col, InputGroup, Button } from "react-bootstrap";
 
-const SignUp = ({ signup }) => {
+const SignUp = ({ signup, setAlarm }) => {
   const [formData, setFormData] = useState({
     user_name: "",
     password1: "",
     password2: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
+  //const [showPassword, setShowPassword] = useState(false);
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +25,7 @@ const SignUp = ({ signup }) => {
     e.preventDefault();
 
     if (formData.password1 !== formData.password2) {
-      // Put Alarm here
+      setAlarm("Passwords do not match", "danger");
       console.log("Passwords do not match.");
       return;
     }
@@ -35,7 +36,7 @@ const SignUp = ({ signup }) => {
     };
 
     console.log(userData);
-    // signup(userData);
+    signup(userData);
   };
 
   return (
@@ -97,8 +98,9 @@ const SignUp = ({ signup }) => {
 
 SignUp.propTypes = {
   signup: PropTypes.func.isRequired,
+  setAlarm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps, { signup })(SignUp);
+export default connect(mapStateToProps, { signup, setAlarm })(SignUp);

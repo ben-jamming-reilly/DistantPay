@@ -24,7 +24,12 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ user_name: user_name });
     if (!user)
-      return res.status(400).json({ errors: [{ msg: "Invalid Email" }] });
+      return res.status(400).json({ errors: [{ msg: "Invalid Username" }] });
+
+    if (!user.verified)
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "You are not a verified user" }] });
 
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -49,11 +54,10 @@ router.post("/login", async (req, res) => {
       }
     );
   } catch (err) {
-    console.err(err.message);
+    console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
-
 
 router.post("/create", async (req, res) => {
   const { user_name, password } = req.body;
@@ -76,6 +80,7 @@ router.post("/create", async (req, res) => {
     return res.status(201).json({
       msg:
         "Your account has been created, please standby until another user verifies you.",
+      type: "success",
     });
   } catch (err) {
     console.error(err.message);

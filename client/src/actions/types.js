@@ -12,4 +12,8 @@ export const USER_LOADED = "USER_LOADED";
 export const SET_ALARM = "SET_ALARM";
 export const REMOVE_ALARM = "REMOVE_ALARM";
 
-
+// Items
+export const ADD_ITEM = "ADD_ITEM";
+export const MOD_ITEM = "MOD_ITEM";
+export const REMOVE_ITEM = "REMOVE_ITEM";
+export const VIEW_ITEMS = "VIEW_ITEMS";
