@@ -2,72 +2,101 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import connect from "react-redux";
 
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 const Hub = () => {
+  const history = useHistory();
+
   return (
     <Fragment>
       <Row>
         <Col
           xs='12'
           style={{
-            alignContent: "center",
+            padding: "5px",
           }}
+          className='text-center'
         >
-          <div
+          <Button
+            variant='secondary'
             style={{
-              width: "200px",
-              height: "200px",
+              width: "250px",
+              height: "250px",
               textAlign: "center",
               margin: "auto",
-              alignContent: "center",
+              fontWeight: "bolder",
             }}
+            onClick={() => history.push("/")}
           >
             About Me
-          </div>
+          </Button>
         </Col>
-        <Col xs='12'>
-          <div
+        <Col
+          xs='12'
+          style={{
+            padding: "5px",
+          }}
+          className='text-center'
+        >
+          <Button
+            variant='secondary'
             style={{
-              width: "200px",
-              height: "200px",
+              width: "250px",
+              height: "250px",
               textAlign: "center",
               margin: "auto",
-              alignContent: "center",
+              fontWeight: "bolder",
             }}
+            onClick={() => history.push("/")}
           >
             Orders
-          </div>
+          </Button>
         </Col>
       </Row>
       <Row>
-        <Col xs='12'>
-          <div
+        <Col
+          xs='12'
+          style={{
+            padding: "5px",
+          }}
+          className='text-center'
+        >
+          <Button
+            variant='secondary'
             style={{
-              width: "200px",
-              height: "200px",
+              width: "250px",
+              height: "250px",
               textAlign: "center",
               margin: "auto",
-              alignContent: "center",
+              fontWeight: "bolder",
             }}
+            onClick={() => history.push("/")}
           >
             Menu
-          </div>
+          </Button>
         </Col>
-        <Col xs='12'>
-          <div
+        <Col
+          xs='12'
+          style={{
+            padding: "5px",
+          }}
+          className='text-center'
+        >
+          <Button
+            variant='secondary'
             style={{
-              width: "200px",
-              height: "200px",
+              width: "250px",
+              height: "250px",
               textAlign: "center",
               margin: "auto",
-              alignContent: "center",
+              fontWeight: "bolder",
             }}
+            onClick={() => history.push("/")}
           >
             Users
-          </div>
+          </Button>
         </Col>
       </Row>
     </Fragment>

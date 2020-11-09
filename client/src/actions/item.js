@@ -1,12 +1,12 @@
 import axios from "axios";
 
-import { ADD_ITEM, MOD_ITEM, REMOVE_ITEM, VIEW_ITEMS } from "./types";
+import { ADD_ITEM, MOD_ITEM, REMOVE_ITEM, GET_ITEMS } from "./types";
 
 export const getItems = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/items/all");
     dispatch({
-      type: VIEW_ITEMS,
+      type: GET_ITEMS,
       payload: res.data,
     });
   } catch (err) {

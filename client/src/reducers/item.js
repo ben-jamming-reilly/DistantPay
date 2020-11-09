@@ -1,14 +1,15 @@
-import { ADD_ITEM, MOD_ITEM, REMOVE_ITEM, VIEW_ITEMS } from "../actions/types";
+import { ADD_ITEM, MOD_ITEM, REMOVE_ITEM, GET_ITEMS } from "../actions/types";
 
 const initialState = {
   items: [],
+  loading: true,
 };
 
 export default function (state = initialState, actions) {
   const { type, payload } = action;
 
   switch (type) {
-    case VIEW_ITEMS:
+    case GET_ITEMS:
       return {
         ...state,
         items: payload,

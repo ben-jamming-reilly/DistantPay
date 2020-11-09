@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Redux
@@ -44,7 +44,6 @@ const App = () => {
       <Router>
         <Fragment>
           <NavigationBar />
-          <br />
           <Alarm />
           <Route exact path='/' />
           <section className='container'>

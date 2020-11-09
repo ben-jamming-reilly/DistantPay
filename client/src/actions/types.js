@@ -16,4 +16,9 @@ export const REMOVE_ALARM = "REMOVE_ALARM";
 export const ADD_ITEM = "ADD_ITEM";
 export const MOD_ITEM = "MOD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
-export const VIEW_ITEMS = "VIEW_ITEMS";
+export const GET_ITEMS = "GET_ITEMS";
+
+// Users
+export const GET_USERS = "GET_USERS";
+export const MOD_USER = "MOD_USERS";
+export const REMOVE_USER = "REMOVE_USER";
