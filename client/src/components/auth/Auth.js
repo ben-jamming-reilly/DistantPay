@@ -19,6 +19,7 @@ const Auth = ({ isAuthenticated }) => {
 
   return (
     <Fragment>
+      <br />
       <Col xs='1' />
       <Col>
         <Row
