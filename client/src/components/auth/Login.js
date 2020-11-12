@@ -21,7 +21,6 @@ const Login = ({ login }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     login(formData);
   };
 

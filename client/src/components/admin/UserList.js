@@ -2,14 +2,30 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const User = () => {
-  return <div />;
+import { getUsers } from "../../actions/users";
+
+import { ListGroup } from "react-bootstrap";
+
+const User = ({}) => {
+  return <ListGroup.Item></ListGroup.Item>;
 };
 
-const UserList = () => {
-  return <Fragment />;
+const UserList = ({ getUsers }) => {
+  const [Users, setUsers] = useState(initialState);
+  return (
+    <Fragment>
+      <ListGroup></ListGroup>
+    </Fragment>
+  );
 };
 
-const mapStateToProps = (state) => ({});
+UserList.propTypes = {
+  getUsers: PropTypes.func.isRequired,
+  users: PropTypes.object.isRequired,
+};
 
-export default connect(mapStateToProps)(UserList);
+const mapStateToProps = (state) => ({
+  users: state.user.users,
+});
+
+export default connect(mapStateToProps, { getUsers })(UserList);
